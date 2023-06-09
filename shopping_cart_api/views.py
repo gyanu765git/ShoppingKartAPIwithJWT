@@ -3,16 +3,15 @@ from rest_framework.response import Response
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 from django.contrib.auth.models import User
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth import login,authenticate,logout
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework import viewsets
 
 # write views here...
 
 class ProductsView(APIView):
     
-    permission_classes =[IsAuthenticated]
+    permission_classes =[AllowAny]
     
     def get(self, request, format=None):
         products = Product.objects.all()
@@ -21,7 +20,7 @@ class ProductsView(APIView):
 
 class CategoryView(APIView):
     
-    permission_classes =[IsAuthenticated]
+    permission_classes =[AllowAny]
     
     def get(self, request, format=None):
         categories = Category.objects.all()
@@ -30,7 +29,7 @@ class CategoryView(APIView):
 
 class GetProductByCategoryView(APIView):
     
-    permission_classes =[IsAuthenticated]
+    permission_classes =[AllowAny]
      
     def get(self, request, category_id, format=None):
         queryset = Product.objects.filter(category_id=category_id)
@@ -39,8 +38,8 @@ class GetProductByCategoryView(APIView):
     
 class CartView(APIView):
     
-    permission_classes =[IsAuthenticated]
-     
+    permission_classes = [AllowAny]
+    
     def get(self, request):
         cart = request.session.get('cart', {})
         product_ids = cart.keys()
