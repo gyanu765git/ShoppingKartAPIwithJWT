@@ -91,6 +91,14 @@ REST_FRAMEWORK = {
     )
 }
 
+import datetime
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=2),
+    # Other JWT settings...
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
